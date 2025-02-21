@@ -39,5 +39,43 @@ class TestHtmlNode(unittest.TestCase):
             node = LeafNode("p", None)
             print(node.to_html())
 
+    def test_parent_values(self):
+        node = ParentNode("p",
+                        [
+                            LeafNode("b", "Bold text"),
+                            LeafNode(None, "Normal text"),
+                            LeafNode("i", "italic text"),
+                            LeafNode(None, "Normal text"),
+                        ],)
+        
+        self.assertEqual(node.tag, "p")
+        self.assertEqual(node.children, 
+                        [
+                            LeafNode("b", "Bold text"),
+                            LeafNode(None, "Normal text"),
+                            LeafNode("i", "italic text"),
+                            LeafNode(None, "Normal text"),
+                        ])
+        self.assertEqual(node.props, None)
+
+    def test_no_value_parent(self):
+        with self.assertRaises(ValueError):
+            node = ParentNode(None, [LeafNode("b", "Bold text")])
+            print(node.to_html())
+        with self.assertRaises(ValueError):
+            node = ParentNode("p", None)
+            print(node.to_html())
+
+    def test_parent_to_html(self):
+        node = ParentNode("p",
+                            [
+                                LeafNode("b", "Bold text"),
+                                LeafNode(None, "Normal text"),
+                                LeafNode("i", "italic text"),
+                                LeafNode(None, "Normal text"),
+                            ],
+                        )
+        self.assertEqual(node.to_html(), "<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>")
+
 if __name__ == "__main__":
     unittest.main()
