@@ -1,5 +1,5 @@
 from textnode import *
-from block_markdown import *
+from markdown_blocks import *
 
 def main():
     md = """
