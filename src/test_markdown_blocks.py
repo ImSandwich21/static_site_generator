@@ -2,7 +2,8 @@ import unittest
 from markdown_blocks import (
     BlockType,
     markdown_to_blocks, 
-    block_to_block_type,)
+    block_to_block_type, 
+    markdown_to_html_node)
 
 class TestBlockMarkdown(unittest.TestCase):
     def test_markdown_to_blocks(self):
@@ -52,3 +53,4 @@ This is the same paragraph on a new line
 
         block_type = block_to_block_type(md)
         self.assertEqual(BlockType.OLIST, block_type)
+
